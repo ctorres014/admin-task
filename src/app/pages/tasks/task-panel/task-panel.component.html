@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <span>Total hours: </span>
+            <a href="#" class="badge badge-primary">20</a>
+        </div>
+        <div class="col-md-4">
+            <span>Total hours: </span>
+            <a href="#" class="badge badge-warning">10</a>
+        </div>
+        <div class="col-md-4">
+            <span>Total hours: </span>
+            <a href="#" class="badge badge-success">5</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="example-container">
+                <h2>Planned</h2>
+                <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]" class="example-list" (cdkDropListDropped)="drop($event)">
+                    <div class="card" *ngFor="let item of todo" cdkDrag>
+                        <div class="card-header">
+                            {{item.name}}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Time: {{ item.timeStimate }}</h5>
+                            <p class="card-text">Descripcion: {{ item.description }}</p>
+                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                        </div>
+                        <div class="card-footer">
+                            2 days ago
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="example-container">
+                <h2>In Progress</h2>
+                <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
+                    <div class="card" *ngFor="let item of done" cdkDrag>
+                        <div class="card-header">
+                            {{item.name}}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Time: {{ item.timeStimate }}</h5>
+                            <p class="card-text">Descripcion: {{ item.description }}</p>
+                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                        </div>
+                        <div class="card-footer">
+                            2 days ago
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
+                    <ng-template>
+                        <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+                    </ng-template>
+                    <div class="alert alert-danger" role="alert" *ngIf="done"><strong>Within task in progress</strong></div>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="example-container">
+                <h2>Completed</h2>
+
+                <!-- <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

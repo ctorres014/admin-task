@@ -2,23 +2,23 @@
     <div class="row">
         <div class="col-md-4">
             <span>Total hours: </span>
-            <a href="#" class="badge badge-primary">20</a>
+            <a href="#" class="badge badge-primary">{{ sumHourPlanned }}</a>
         </div>
         <div class="col-md-4">
             <span>Total hours: </span>
-            <a href="#" class="badge badge-warning">10</a>
+            <a href="#" class="badge badge-warning">{{ sumHourInProgress }}</a>
         </div>
         <div class="col-md-4">
             <span>Total hours: </span>
-            <a href="#" class="badge badge-success">5</a>
+            <a href="#" class="badge badge-success">{{ sumHourCompleted }}</a>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <div class="example-container">
                 <h2>Planned</h2>
-                <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]" class="example-list" (cdkDropListDropped)="drop($event)">
-                    <div class="card" *ngFor="let item of todo" cdkDrag>
+                <div cdkDropList #plannedList="cdkDropList" [cdkDropListData]="_taskService.planned" [cdkDropListConnectedTo]="[inProgressList]" class="example-list" (cdkDropListDropped)="dropInProgress($event)">
+                    <div class="card" *ngFor="let item of _taskService.planned" [ngClass]="{'hide-task': !item.active}" cdkDrag>
                         <div class="card-header">
                             {{item.name}}
                         </div>
@@ -37,8 +37,8 @@
         <div class="col-md-4">
             <div class="example-container">
                 <h2>In Progress</h2>
-                <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
-                    <div class="card" *ngFor="let item of done" cdkDrag>
+                <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="_taskService.inProgress" [cdkDropListConnectedTo]="[completedList]" class="example-list" (cdkDropListDropped)="dropInProgress($event)">
+                    <div class="card" *ngFor="let item of _taskService.inProgress" cdkDrag>
                         <div class="card-header">
                             {{item.name}}
                         </div>
@@ -66,9 +66,21 @@
             <div class="example-container">
                 <h2>Completed</h2>
 
-                <!-- <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
-                    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
-                </div> -->
+                <div cdkDropList #completedList="cdkDropList" [cdkDropListData]="_taskService.completed" [cdkDropListConnectedTo]="[inProgressList]" class="example-list" (cdkDropListDropped)="dropCompleted($event)">
+                    <div class="card" *ngFor="let item of _taskService.completed" cdkDrag>
+                        <div class="card-header">
+                            {{item.name}}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Time: {{ item.timeStimate }}</h5>
+                            <p class="card-text">Descripcion: {{ item.description }}</p>
+                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                        </div>
+                        <div class="card-footer">
+                            2 days ago
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

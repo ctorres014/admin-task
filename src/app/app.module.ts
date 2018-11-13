@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 // Firebase
 import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 // Enviroment
 import { environment } from 'src/environments/environment';
 
@@ -26,7 +27,9 @@ import { NewComponent } from './pages/tasks/new/new.component';
     AppRoutingModule,
     FormsModule,
     DragDropModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    ReactiveFormsModule
+    // AngularFireModule.initializeApp(environment.firebase),
+    // AngularFirestoreModule, // imports firebase/firestore, only needed for database features
   ],
   providers: [],
   bootstrap: [AppComponent]

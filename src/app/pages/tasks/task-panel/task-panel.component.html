@@ -19,17 +19,17 @@
                 <h2>Planned</h2>
                 <div cdkDropList #plannedList="cdkDropList" [cdkDropListData]="_taskService.planned" [cdkDropListConnectedTo]="[inProgressList]" class="example-list" (cdkDropListDropped)="dropInProgress($event)">
                     <div class="card" *ngFor="let item of _taskService.planned" [ngClass]="{'hide-task': !item.active}" cdkDrag>
-                        <div class="card-header">
+                        <div class="card-header alert alert-dark">
                             {{item.name}}
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Time: {{ item.timeStimate }}</h5>
+                            <h5 class="card-title">Time: {{ item.timeStimated }}</h5>
                             <p class="card-text">Descripcion: {{ item.description }}</p>
                             <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                         </div>
-                        <div class="card-footer">
+                        <!-- <div class="card-footer">
                             2 days ago
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -38,28 +38,19 @@
             <div class="example-container">
                 <h2>In Progress</h2>
                 <div cdkDropList #inProgressList="cdkDropList" [cdkDropListData]="_taskService.inProgress" [cdkDropListConnectedTo]="[completedList]" class="example-list" (cdkDropListDropped)="dropInProgress($event)">
-                    <div class="card" *ngFor="let item of _taskService.inProgress" cdkDrag>
-                        <div class="card-header">
+                    <div class="card" *ngFor="let item of _taskService.inProgress" [ngClass]="{'hide-task': !item.active}" cdkDrag>
+                        <div class="card-header alert alert-dark">
                             {{item.name}}
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Time: {{ item.timeStimate }}</h5>
+                            <h5 class="card-title">Time: {{ item.timeStimated }}</h5>
                             <p class="card-text">Descripcion: {{ item.description }}</p>
-                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                         </div>
-                        <div class="card-footer">
+                        <!-- <div class="card-footer">
                             2 days ago
-                        </div>
+                        </div> -->
                     </div>
                 </div>
-
-
-                <!-- <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
-                    <ng-template>
-                        <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
-                    </ng-template>
-                    <div class="alert alert-danger" role="alert" *ngIf="done"><strong>Within task in progress</strong></div>
-                </div> -->
             </div>
         </div>
         <div class="col-md-4">
@@ -67,18 +58,17 @@
                 <h2>Completed</h2>
 
                 <div cdkDropList #completedList="cdkDropList" [cdkDropListData]="_taskService.completed" [cdkDropListConnectedTo]="[inProgressList]" class="example-list" (cdkDropListDropped)="dropCompleted($event)">
-                    <div class="card" *ngFor="let item of _taskService.completed" cdkDrag>
-                        <div class="card-header">
+                    <div class="card" *ngFor="let item of _taskService.completed" [ngClass]="{'hide-task': !item.active}" cdkDrag>
+                        <div class="card-header alert alert-dark">
                             {{item.name}}
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Time: {{ item.timeStimate }}</h5>
+                            <h5 class="card-title">Time: {{ item.timeStimated }}</h5>
                             <p class="card-text">Descripcion: {{ item.description }}</p>
-                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                         </div>
-                        <div class="card-footer">
+                        <!-- <div class="card-footer">
                             2 days ago
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { TaskService } from '../../../service/task.service';
+import { StateEnum } from '../../../enum/states.enum';
 
 @Component({
   selector: 'app-task-panel',
@@ -25,10 +26,20 @@ export class TaskPanelComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+      let previus: any = event.previousContainer.data[event.currentIndex];
+      if(previus.state === StateEnum.Planned) {
+        this.sumHourPlanned -=  this._taskService.planned[event.currentIndex].timeStimated;
+      }
       transferArrayItem(event.previousContainer.data,
                         event.container.data,
                         event.previousIndex,
                         event.currentIndex);
+      this._taskService.inProgress[event.currentIndex].state = StateEnum.InProgress;
+      this.sumHourInProgress = this.sumTotalHourByState(this._taskService.inProgress);
+      if(this.sumHourCompleted > 0) {
+        this.sumHourCompleted -= this._taskService.inProgress[event.currentIndex].timeStimated;
+      }
+
     }
 
   }
@@ -40,8 +51,12 @@ export class TaskPanelComponent implements OnInit {
                         event.container.data,
                         event.previousIndex,
                         event.currentIndex);
+      this._taskService.completed[event.currentIndex].state = StateEnum.Completed;
+      this.sumHourCompleted = this.sumTotalHourByState(this._taskService.completed);
+      this.sumHourInProgress -=  this._taskService.completed[event.currentIndex].timeStimated;
     }
   }
+  
   ///////////////////////////////////////////
   /// Sum the time stimate for array object
   ///////////////////////////////////////////
@@ -49,7 +64,7 @@ export class TaskPanelComponent implements OnInit {
     let sum: number = 0;
     for(const item of arrayObject) {
       if(item.active) {
-        sum += item.timeStimate;
+        sum += item.timeStimated;
       }
     }
     return sum;

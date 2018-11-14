@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-// import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-// Rxjs
-// import { Observable } from 'rxjs';
 import { TaskService } from '../../../service/task.service';
+import { StateEnum } from 'src/app/enum/states.enum';
 
 @Component({
   selector: 'app-list-tasks',
@@ -11,21 +9,36 @@ import { TaskService } from '../../../service/task.service';
 })
 export class ListTasksComponent implements OnInit {
   allTasks: Array<any> = [ ];
-  
+
   constructor(private _taskService: TaskService) {
     this.getAllTask(this._taskService.planned);
+    this.getAllTask(this._taskService.inProgress);
+    this.getAllTask(this._taskService.completed);
   }
 
   ngOnInit() {
   }
-  delete(id: any) {
-
+  action(item: any) {
+    debugger;
+    switch (item.state) {
+      case StateEnum.Planned:
+        let planned = this._taskService.planned.find(x => x.id === item.id);
+        planned.active = !item.active;
+        break;
+      case StateEnum.InProgress:
+        let inProgress = this._taskService.inProgress.find(x => x.id === item.id);
+        console.log(inProgress);
+        
+        inProgress.active = !item.active;
+      break;
+      case StateEnum.Completed:
+        let completed = this._taskService.completed.find(x => x.id === item.id);
+        completed.active = !item.active;
+      break;
+      default:
+        break;
+    }
   }
-  active(id: any) {
-    
-  }
-
-
 
   private getAllTask(arrayObject: Array<any>) {
     for (const item of arrayObject) {

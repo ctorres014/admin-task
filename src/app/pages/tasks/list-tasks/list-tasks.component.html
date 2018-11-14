@@ -12,9 +12,9 @@
         <table class="table table-hover table-sm ">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Stimated</th>
                     <th scope="col">State</th>
                     <th scope="col">Active</th>
                     <th scope="col">Actions</th>
@@ -22,14 +22,14 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of allTasks">
-                    <th scope="row">{{ item.id }}</th>
                     <td>{{ item.name }}</td>
                     <td>{{ item.description }}</td>
+                    <td>{{ item.timeStimated }}</td>
                     <td>{{ item.state }}</td>
                     <td>{{ item.active }}</td>
                     <td>
-                        <button class="btn  btn-outline-danger btn-sm margin-end-button" [disabled]="!item.active" (click)="delete(item.id)">Delete</button>
-                        <button class="btn btn-outline-primary btn-sm" [disabled]="item.active" (click)="active(item.id)">Active</button>
+                        <button class="btn  btn-outline-danger btn-sm margin-end-button" [disabled]="!item.active" (click)="action(item)">Delete</button>
+                        <button class="btn btn-outline-primary btn-sm" [disabled]="item.active" (click)="action(item)">Active</button>
                     </td>
                 </tr>
             </tbody>

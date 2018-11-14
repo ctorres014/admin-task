@@ -26,9 +26,7 @@ export class ListTasksComponent implements OnInit {
         planned.active = !item.active;
         break;
       case StateEnum.InProgress:
-        let inProgress = this._taskService.inProgress.find(x => x.id === item.id);
-        console.log(inProgress);
-        
+        let inProgress = this._taskService.inProgress.find(x => x.id === item.id);        
         inProgress.active = !item.active;
       break;
       case StateEnum.Completed:
